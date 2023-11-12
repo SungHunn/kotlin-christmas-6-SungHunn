@@ -11,5 +11,7 @@ class EventPlannerController(
     fun present() {
         output.printStart()
         input.readVisitDate()
+        input.readOrder()
+
     }
 }
