@@ -8,6 +8,7 @@ import christmas.util.Constants.AMOUNT_BEFORE_DISCOUNT
 import christmas.util.Constants.BENEFIT_DETAIL
 import christmas.util.Constants.CHRISTMAS_DDAY_DISCOUNT
 import christmas.util.Constants.DECEMBER
+import christmas.util.Constants.EVENT_BADGE
 import christmas.util.Constants.EXPECTED_AMOUNT
 import christmas.util.Constants.FREEGIFT_EVENT
 import christmas.util.Constants.FREE_GIFT
@@ -100,6 +101,12 @@ class OutputView {
         println("\n" + EXPECTED_AMOUNT)
 
         println(formatAmount(Calculator(event).calculateTotalPrice(price, benefit, freeGift)) + "원")
+    }
+
+    fun printEventBadge(benefit: Int) {
+        println("\n" + EVENT_BADGE)
+
+        println(event.BadgeEvent(benefit))
     }
 
     private fun formatAmount(amount: Int): String {

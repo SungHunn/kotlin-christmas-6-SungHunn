@@ -3,6 +3,7 @@ package christmas.service
 import christmas.model.Menu
 import christmas.model.MenuCategory
 import christmas.util.Constants.FREE_GIFT
+import christmas.util.Constants.NOTHING
 
 class Event {
 
@@ -33,6 +34,15 @@ class Event {
     }
 
     fun specialDayEvent() : Int = 1000
+
+    fun BadgeEvent(benefit : Int) : String {
+        return when {
+            benefit >= 20000 -> "산타"
+            benefit >= 10000 -> "트리"
+            benefit >= 5000 -> "별"
+            else -> NOTHING
+        }
+    }
 
     fun checkBeforeChristmas(date: Int): Boolean = date <= 25
     fun checkWeekday(date: Int): Boolean = (date % 7 != 1 && date % 7 != 2)

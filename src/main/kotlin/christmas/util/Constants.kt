@@ -20,4 +20,6 @@ object Constants {
     const val FREEGIFT_EVENT = "증정 이벤트: "
     const val SUM_BENEFIT = "<총혜택 금액>"
     const val EXPECTED_AMOUNT = "<할인 후 예상 결제 금액>"
+    const val EVENT_BADGE = "<12월 이벤트 배지>"
+
 }

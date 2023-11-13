@@ -30,7 +30,7 @@ class EventPlannerController(
 
         val benefitPrice = output.printSumBenefit(date, order, freeGift)
         output.printDiscountedTotalAmount(amount, benefitPrice, freeGift)
-
+        output.printEventBadge(benefitPrice)
     }
 
 
