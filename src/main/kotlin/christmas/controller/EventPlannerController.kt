@@ -1,6 +1,5 @@
 package christmas.controller
 
-import christmas.model.Menu
 import christmas.model.MenuCategory
 import christmas.view.InputView
 import christmas.view.OutputView
@@ -19,6 +18,9 @@ class EventPlannerController(
         output.printOrder(order)
         val amount = output.printAmountBeforeDiscount(order)
         val freeGift = output.printFreeGift(amount)
+
+        output.printBenefitDetail(date, order, freeGift)
+
 
     }
 

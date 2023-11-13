@@ -68,6 +68,14 @@ enum class MenuCategory(val category: String, val menuList: List<Menu>) {
             return null
         }
 
+        fun findCategory(category: MenuCategory, orderMenu: Map<Menu, Int>): Int {
+            var count = 0
+            val menuList = category.menuList
+            orderMenu.forEach { menu ->
+                if (menuList.contains(menu.key)) count += menu.value
+            }
+            return count
+        }
 
     }
 

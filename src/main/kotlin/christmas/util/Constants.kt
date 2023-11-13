@@ -10,6 +10,12 @@ object Constants {
     const val ORDER_MENU = "<주문 메뉴>"
     const val AMOUNT_BEFORE_DISCOUNT = "<할인 전 총주문 금액>"
     const val FREE_GIFT_PHRASES = "<증정 메뉴>"
-    const val FREE_GIFT = "샴페인 1개"
+    const val FREE_GIFT = "샴페인"
     const val NOTHING = "없음"
+    const val BENEFIT_DETAIL = "<혜택 내역>"
+    const val CHRISTMAS_DDAY_DISCOUNT = "크리스마스 디데이 할인: "
+    const val WEEKDAY_DISCOUNT = "평일 할인: "
+    const val WEEKEND_DISCOUNT = "주말 할인: "
+    const val SPECIAL_DISCOUNT = "특별 할인: "
+    const val FREEGIFT_EVENT = "증정 이벤트: "
 }
