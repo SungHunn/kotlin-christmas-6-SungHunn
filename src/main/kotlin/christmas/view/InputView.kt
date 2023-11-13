@@ -29,7 +29,6 @@ class InputView {
     fun readOrder() : List<String>{
         println(TAKE_ORDER)
 
-
         return checkOrder()
     }
 

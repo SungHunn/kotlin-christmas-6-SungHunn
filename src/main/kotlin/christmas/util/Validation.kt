@@ -18,7 +18,7 @@ object Validation {
         require(validateCorrectFormat(orders)) { "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요." }
         require(validateDuplicateOrder(orders)) { "[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요." }
         require(validateOrderCategory(orders)) { "[ERROR] 음료만 주문 시, 주문할 수 없습니다." }
-        require(validateOrderDishes(orders)) {"[ERROR] 메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다."}
+        require(validateOrderDishes(orders)) { "[ERROR] 메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다." }
     }
 
     fun validateCorrectFormat(orders: List<String>): Boolean {
@@ -38,7 +38,7 @@ object Validation {
     fun validateOrderCategory(orders: List<String>): Boolean {
         return !orders.all { orderMine ->
             val menuName = orderMine.split("-")[0]
-            MenuCategory.DRINK.menu.any { it.name == menuName }
+            MenuCategory.DRINK.menuList.any { it.name == menuName }
         }
     }
 
@@ -49,7 +49,7 @@ object Validation {
         return dishes <= 20
     }
 
-    fun validateDuplicateOrder(orders: List<String>) : Boolean {
+    fun validateDuplicateOrder(orders: List<String>): Boolean {
         val orderMenuName = mutableListOf<String>()
         orders.forEach { menuName ->
             orderMenuName.add(menuName.split("-")[0])

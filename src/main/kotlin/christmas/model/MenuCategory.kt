@@ -1,7 +1,7 @@
 package christmas.model
 
 
-enum class MenuCategory(val category: String, val menu: List<Menu>) {
+enum class MenuCategory(val category: String, val menuList: List<Menu>) {
     APPETIZER(
         "에피타이저", listOf(
             Menu("양송이수프", 6000),
@@ -33,16 +33,31 @@ enum class MenuCategory(val category: String, val menu: List<Menu>) {
         )
     );
 
-    companion object{
-        fun checkItemInMenuCategory(menuName : String): Boolean{
-            return when{
-                APPETIZER.menu.any { it.name == menuName } -> true
-                MAIN.menu.any { it.name == menuName } -> true
-                DESSERT.menu.any { it.name == menuName } -> true
-                DRINK.menu.any { it.name == menuName } -> true
+    companion object {
+        fun checkItemInMenuCategory(menuName: String): Boolean {
+            return when {
+                APPETIZER.menuList.any { it.name == menuName } -> true
+                MAIN.menuList.any { it.name == menuName } -> true
+                DESSERT.menuList.any { it.name == menuName } -> true
+                DRINK.menuList.any { it.name == menuName } -> true
                 else -> false
             }
         }
+
+        fun getMenuList(orderMenu: List<String>): Map<Menu, Int> {
+            val resultMenu = mutableMapOf<Menu, Int>()
+
+            for (order in orderMenu) {
+                val (name, quantity) = order.split("-")
+
+                for (category in entries) {
+                    val menu = category.menuList.find { it.name == name }
+                    if (menu != null) resultMenu[Menu(menu.name, menu.price)] = quantity.toInt()
+                }
+            }
+            return resultMenu
+        }
+
 
     }
 
