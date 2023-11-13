@@ -8,6 +8,7 @@ import christmas.util.Constants.AMOUNT_BEFORE_DISCOUNT
 import christmas.util.Constants.BENEFIT_DETAIL
 import christmas.util.Constants.CHRISTMAS_DDAY_DISCOUNT
 import christmas.util.Constants.DECEMBER
+import christmas.util.Constants.EXPECTED_AMOUNT
 import christmas.util.Constants.FREEGIFT_EVENT
 import christmas.util.Constants.FREE_GIFT
 import christmas.util.Constants.FREE_GIFT_PHRASES
@@ -16,6 +17,7 @@ import christmas.util.Constants.NOTHING
 import christmas.util.Constants.ORDER_MENU
 import christmas.util.Constants.PREVIEW_EVENT_PLANNER
 import christmas.util.Constants.SPECIAL_DISCOUNT
+import christmas.util.Constants.SUM_BENEFIT
 import christmas.util.Constants.WEEKDAY_DISCOUNT
 import christmas.util.Constants.WEEKEND_DISCOUNT
 
@@ -42,7 +44,7 @@ class OutputView {
     fun printAmountBeforeDiscount(order: Map<Menu, Int>): Int {
         println("\n" + AMOUNT_BEFORE_DISCOUNT)
 
-        val amount = Calculator().calculateBeforeDiscount(order)
+        val amount = Calculator(event).calculateBeforeDiscount(order)
         println(formatAmount(amount) + "원")
 
         return amount
@@ -78,9 +80,26 @@ class OutputView {
         if (freeGift) println(FREEGIFT_EVENT + "-" + formatAmount(event.freeGiftPrice()) + "원")
 
         if (!event.checkBeforeChristmas(date) && !event.checkWeekday(date) && !event.checkWeekend(date)
-            && !freeGift && !event.checkSpecialDay(date)
-        )
+            && !freeGift && !event.checkSpecialDay(date))
             println(NOTHING)
+    }
+
+    fun printSumBenefit(date: Int, order: Map<Menu, Int>, freeGift: Boolean) : Int{
+        println("\n" + SUM_BENEFIT)
+
+        val benefit = Calculator(event).calculateBenefitPrice(date, order, freeGift)
+        if (benefit == 0) {
+            println("0원")
+            return 0
+        }
+        println("-" + formatAmount(benefit) + "원")
+        return benefit
+    }
+
+    fun printDiscountedTotalAmount(price : Int, benefit : Int, freeGift: Boolean)  {
+        println("\n" + EXPECTED_AMOUNT)
+
+        println(formatAmount(Calculator(event).calculateTotalPrice(price, benefit, freeGift)) + "원")
     }
 
     private fun formatAmount(amount: Int): String {

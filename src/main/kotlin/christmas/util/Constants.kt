@@ -18,4 +18,6 @@ object Constants {
     const val WEEKEND_DISCOUNT = "주말 할인: "
     const val SPECIAL_DISCOUNT = "특별 할인: "
     const val FREEGIFT_EVENT = "증정 이벤트: "
+    const val SUM_BENEFIT = "<총혜택 금액>"
+    const val EXPECTED_AMOUNT = "<할인 후 예상 결제 금액>"
 }

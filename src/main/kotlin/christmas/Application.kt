@@ -8,5 +8,5 @@ fun main() {
     //TODO("프로그램 구현")
 
     val eventPlannerController = EventPlannerController(InputView(), OutputView())
-    eventPlannerController.present()
+    eventPlannerController.presentExample()
 }
