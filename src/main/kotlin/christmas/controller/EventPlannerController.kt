@@ -17,7 +17,8 @@ class EventPlannerController(
 
         output.printPreviewEvent(date)
         output.printOrder(order)
-        output.printAmountBeforeDiscount(order)
+        val amount = output.printAmountBeforeDiscount(order)
+        val freeGift = output.printFreeGift(amount)
 
     }
 

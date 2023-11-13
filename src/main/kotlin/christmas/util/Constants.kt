@@ -9,4 +9,7 @@ object Constants {
     const val PREVIEW_EVENT_PLANNER = "우테코 식당에서 받을 이벤트 혜택 미리 보기!"
     const val ORDER_MENU = "<주문 메뉴>"
     const val AMOUNT_BEFORE_DISCOUNT = "<할인 전 총주문 금액>"
+    const val FREE_GIFT_PHRASES = "<증정 메뉴>"
+    const val FREE_GIFT = "샴페인 1개"
+    const val NOTHING = "없음"
 }

@@ -1,5 +1,7 @@
 package christmas.model
 
+import java.awt.SystemColor.menu
+
 
 enum class MenuCategory(val category: String, val menuList: List<Menu>) {
     APPETIZER(
@@ -49,13 +51,21 @@ enum class MenuCategory(val category: String, val menuList: List<Menu>) {
 
             for (order in orderMenu) {
                 val (name, quantity) = order.split("-")
+                val menuName = findMenu(name)
 
-                for (category in entries) {
-                    val menu = category.menuList.find { it.name == name }
-                    if (menu != null) resultMenu[Menu(menu.name, menu.price)] = quantity.toInt()
-                }
+                if (menuName != null)
+                    resultMenu[Menu(menuName.name, menuName.price)] = quantity.toInt()
+
             }
             return resultMenu
+        }
+
+        fun findMenu(name: String): Menu? {
+            for (category in entries) {
+                val menu = category.menuList.find { it.name == name }
+                if (menu != null) return menu
+            }
+            return null
         }
 
 
