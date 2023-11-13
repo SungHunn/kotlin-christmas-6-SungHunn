@@ -17,7 +17,7 @@ class EventPlannerController(
 
         output.printPreviewEvent(date)
         output.printOrder(order)
-
+        output.printAmountBeforeDiscount(order)
 
     }
 

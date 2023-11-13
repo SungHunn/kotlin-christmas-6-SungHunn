@@ -8,4 +8,5 @@ object Constants {
     const val DECEMBER = "12월"
     const val PREVIEW_EVENT_PLANNER = "우테코 식당에서 받을 이벤트 혜택 미리 보기!"
     const val ORDER_MENU = "<주문 메뉴>"
+    const val AMOUNT_BEFORE_DISCOUNT = "<할인 전 총주문 금액>"
 }
