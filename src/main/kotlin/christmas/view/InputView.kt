@@ -36,7 +36,7 @@ class InputView {
         return try {
             val order = Console.readLine()
             validateOrderMenu(order)
-            order.split(",")
+            order.split(",").map { it.trim() }
         } catch (e: IllegalArgumentException) {
             println(e)
             checkOrder()
