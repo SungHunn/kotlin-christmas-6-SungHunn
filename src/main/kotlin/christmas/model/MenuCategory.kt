@@ -1,8 +1,8 @@
 package christmas.model
 
-import christmas.util.Constants
+
 import christmas.util.Constants.FREE_GIFT
-import java.awt.SystemColor.menu
+
 
 
 enum class MenuCategory(private val menuList: List<Menu>) {
@@ -44,7 +44,7 @@ enum class MenuCategory(private val menuList: List<Menu>) {
                 val menuName = findMenu(name)
 
                 if (menuName != null)
-                    resultMenu[Menu(menuName.name, menuName.price)] = quantity.toInt()
+                    resultMenu[Menu(menuName.getName(), menuName.getPrice())] = quantity.toInt()
 
             }
             return resultMenu
@@ -52,7 +52,7 @@ enum class MenuCategory(private val menuList: List<Menu>) {
 
         fun findMenu(name: String): Menu? {
             for (category in entries) {
-                val menu = category.menuList.find { it.name == name }
+                val menu = category.menuList.find { it.getName() == name }
                 if (menu != null) return menu
             }
             return null
@@ -70,15 +70,15 @@ enum class MenuCategory(private val menuList: List<Menu>) {
         fun findFreeGiftPrice(): Int {
             var price = 0
             DRINK.menuList.forEach { drink ->
-                if (drink.name == FREE_GIFT)
-                    price = drink.price
+                if (drink.getName() == FREE_GIFT)
+                    price = drink.getPrice()
             }
             return price
         }
 
         fun checkOnlyDrink(menuName: String): Boolean {
             DRINK.menuList.forEach { drink ->
-                if (drink.name == menuName)
+                if (drink.getName() == menuName)
                     return true
             }
             return false

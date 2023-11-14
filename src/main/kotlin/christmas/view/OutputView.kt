@@ -38,7 +38,7 @@ class OutputView {
         println("\n" + ORDER_MENU)
 
         order.forEach { menu ->
-            println("${menu.key.name} ${menu.value}개")
+            println("${menu.key.getName()} ${menu.value}개")
         }
     }
 
