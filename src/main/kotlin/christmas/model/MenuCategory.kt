@@ -1,18 +1,20 @@
 package christmas.model
 
+import christmas.util.Constants
+import christmas.util.Constants.FREE_GIFT
 import java.awt.SystemColor.menu
 
 
-enum class MenuCategory(val category: String, val menuList: List<Menu>) {
+enum class MenuCategory(private val menuList: List<Menu>) {
     APPETIZER(
-        "에피타이저", listOf(
+        listOf(
             Menu("양송이수프", 6000),
             Menu("타파스", 5500),
             Menu("시저샐러드", 8000)
         )
     ),
     MAIN(
-        "메인", listOf(
+        listOf(
             Menu("티본스테이크", 55000),
             Menu("바비큐립", 54000),
             Menu("해산물파스타", 35000),
@@ -20,14 +22,12 @@ enum class MenuCategory(val category: String, val menuList: List<Menu>) {
         )
     ),
     DESSERT(
-        "디저트",
         listOf(
             Menu("초코케이크", 15000),
             Menu("아이스크림", 5000)
         )
     ),
     DRINK(
-        "음료",
         listOf(
             Menu("제로콜라", 3000),
             Menu("레드와인", 60000),
@@ -36,16 +36,6 @@ enum class MenuCategory(val category: String, val menuList: List<Menu>) {
     );
 
     companion object {
-        fun checkItemInMenuCategory(menuName: String): Boolean {
-            return when {
-                APPETIZER.menuList.any { it.name == menuName } -> true
-                MAIN.menuList.any { it.name == menuName } -> true
-                DESSERT.menuList.any { it.name == menuName } -> true
-                DRINK.menuList.any { it.name == menuName } -> true
-                else -> false
-            }
-        }
-
         fun getMenuList(orderMenu: List<String>): Map<Menu, Int> {
             val resultMenu = mutableMapOf<Menu, Int>()
 
@@ -77,6 +67,22 @@ enum class MenuCategory(val category: String, val menuList: List<Menu>) {
             return count
         }
 
+        fun findFreeGiftPrice(): Int {
+            var price = 0
+            DRINK.menuList.forEach { drink ->
+                if (drink.name == FREE_GIFT)
+                    price = drink.price
+            }
+            return price
+        }
+
+        fun checkOnlyDrink(menuName: String): Boolean {
+            DRINK.menuList.forEach { drink ->
+                if (drink.name == menuName)
+                    return true
+            }
+            return false
+        }
     }
 
 }

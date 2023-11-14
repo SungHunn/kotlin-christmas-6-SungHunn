@@ -27,7 +27,7 @@ object Validation {
             val menuFormat = menu.split("-")
 
             if (!menu.split("").contains("-") ||
-                !MenuCategory.checkItemInMenuCategory(menuFormat[0]) ||
+                MenuCategory.findMenu(menuFormat[0]) == null ||
                 menuFormat[1].toIntOrNull() == null ||
                 menuFormat[1].toInt() < 1
             ) return false
@@ -38,7 +38,7 @@ object Validation {
     fun validateOrderCategory(orders: List<String>): Boolean {
         return !orders.all { orderMine ->
             val menuName = orderMine.split("-")[0]
-            MenuCategory.DRINK.menuList.any { it.name == menuName }
+            MenuCategory.checkOnlyDrink(menuName)
         }
     }
 

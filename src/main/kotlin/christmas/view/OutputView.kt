@@ -37,30 +37,25 @@ class OutputView {
     fun printOrder(order: Map<Menu, Int>) {
         println("\n" + ORDER_MENU)
 
-        order.forEach {
-            println("${it.key.name} ${it.value}개")
+        order.forEach { menu ->
+            println("${menu.key.name} ${menu.value}개")
         }
     }
 
-    fun printAmountBeforeDiscount(order: Map<Menu, Int>): Int {
+    fun printNothing() {
+        println(NOTHING)
+    }
+
+    fun printAmountBeforeDiscount(amount: Int): Int {
         println("\n" + AMOUNT_BEFORE_DISCOUNT)
 
-        val amount = Calculator(event).calculateBeforeDiscount(order)
         println(formatAmount(amount) + "원")
 
         return amount
     }
 
-    fun printFreeGift(amount: Int): Boolean {
-        println("\n" + FREE_GIFT_PHRASES)
-
-        if (event.freeGiftEvent(amount)) {
-            println("$FREE_GIFT 1개")
-            return true
-        }
-
-        println(NOTHING)
-        return false
+    fun printFreeGift() {
+        println("$FREE_GIFT 1개")
     }
 
     fun printBenefitDetail(date: Int, order: Map<Menu, Int>, freeGift: Boolean) {
@@ -80,15 +75,17 @@ class OutputView {
 
         if (freeGift) println(FREEGIFT_EVENT + "-" + formatAmount(event.freeGiftPrice()) + "원")
 
-        if (!event.checkBeforeChristmas(date) && !event.checkWeekday(date) && !event.checkWeekend(date)
-            && !freeGift && !event.checkSpecialDay(date))
+        if (!event.checkBeforeChristmas(date) && !event.checkWeekday(date) && !event.checkWeekend(
+                date
+            )
+            && !freeGift && !event.checkSpecialDay(date)
+        )
             println(NOTHING)
     }
 
-    fun printSumBenefit(date: Int, order: Map<Menu, Int>, freeGift: Boolean) : Int{
+    fun printSumBenefits(benefit: Int): Int {
         println("\n" + SUM_BENEFIT)
 
-        val benefit = Calculator(event).calculateBenefitPrice(date, order, freeGift)
         if (benefit == 0) {
             println("0원")
             return 0
@@ -97,21 +94,18 @@ class OutputView {
         return benefit
     }
 
-    fun printDiscountedTotalAmount(price : Int, benefit : Int, freeGift: Boolean)  {
+    fun printDiscountedTotalAmount(price: Int, benefit: Int, freeGift: Boolean) {
         println("\n" + EXPECTED_AMOUNT)
-
         println(formatAmount(Calculator(event).calculateTotalPrice(price, benefit, freeGift)) + "원")
     }
 
     fun printEventBadge(benefit: Int) {
         println("\n" + EVENT_BADGE)
-
-        println(event.BadgeEvent(benefit))
+        println(event.badgeEvent(benefit))
     }
 
     private fun formatAmount(amount: Int): String {
         return "%,d".format(amount)
     }
-
 
 }

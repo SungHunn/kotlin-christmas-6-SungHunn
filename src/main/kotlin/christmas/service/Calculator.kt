@@ -2,7 +2,7 @@ package christmas.service
 
 import christmas.model.Menu
 
-class Calculator(val event : Event) {
+class Calculator(private val event : Event) {
 
     fun calculateBeforeDiscount(order : Map<Menu, Int>) : Int {
         var amount = 0

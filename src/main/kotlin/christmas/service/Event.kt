@@ -24,18 +24,13 @@ class Event {
         return MenuCategory.findCategory(MenuCategory.MAIN, orderMenu) * 2023
     }
 
-    fun freeGiftPrice() : Int {
-        var price = 0
-        MenuCategory.DRINK.menuList.forEach { drink ->
-            if (drink.name == FREE_GIFT)
-                price = drink.price
-        }
-        return price
+    fun freeGiftPrice(): Int {
+        return MenuCategory.findFreeGiftPrice()
     }
 
-    fun specialDayEvent() : Int = 1000
+    fun specialDayEvent(): Int = 1000
 
-    fun BadgeEvent(benefit : Int) : String {
+    fun badgeEvent(benefit: Int): String {
         return when {
             benefit >= 20000 -> "산타"
             benefit >= 10000 -> "트리"
@@ -47,6 +42,6 @@ class Event {
     fun checkBeforeChristmas(date: Int): Boolean = date <= 25
     fun checkWeekday(date: Int): Boolean = (date % 7 != 1 && date % 7 != 2)
     fun checkWeekend(date: Int): Boolean = (date % 7 == 1 || date % 7 == 2)
-    fun checkSpecialDay(date: Int) : Boolean = (date % 7 == 3 || date == 25)
+    fun checkSpecialDay(date: Int): Boolean = (date % 7 == 3 || date == 25)
 
 }
