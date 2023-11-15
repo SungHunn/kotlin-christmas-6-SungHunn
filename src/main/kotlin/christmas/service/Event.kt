@@ -2,7 +2,6 @@ package christmas.service
 
 import christmas.model.Menu
 import christmas.model.MenuCategory
-import christmas.util.Constants.FREE_GIFT
 import christmas.util.Constants.NOTHING
 
 class Event {

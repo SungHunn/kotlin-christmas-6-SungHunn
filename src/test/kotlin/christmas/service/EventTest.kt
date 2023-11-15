@@ -58,6 +58,14 @@ class EventTest {
         assertEquals(check, checkSpecialDay)
     }
 
+    @ParameterizedTest
+    @MethodSource("giveBadge")
+    fun `이벤트 배지에 대한 테스트`(benefit: Int, expectedBadge: String) {
+        val actualBadge = event.badgeEvent(benefit)
+
+        assertEquals(expectedBadge, actualBadge)
+    }
+
 
     companion object {
 
@@ -103,6 +111,16 @@ class EventTest {
                 Arguments.of(3, true),
                 Arguments.of(17, true),
                 Arguments.of(28, false)
+            )
+        }
+
+        @JvmStatic
+        fun giveBadge(): Stream<Arguments> {
+            return Stream.of(
+                Arguments.of(28000, "산타"),
+                Arguments.of(16000, "트리"),
+                Arguments.of(9000, "별"),
+                Arguments.of(2000, "없음")
             )
         }
 
