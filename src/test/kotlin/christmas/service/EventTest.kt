@@ -9,9 +9,9 @@ import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.stream.Stream
 
-internal class EventTest {
+class EventTest {
 
-    private lateinit var event : Event
+    private lateinit var event: Event
 
     @BeforeEach
     fun setUp() {
@@ -26,21 +26,38 @@ internal class EventTest {
         assertEquals(check, checkForFreeGift)
     }
 
-    @Test
-    fun checkBeforeChristmas() {
+    @ParameterizedTest
+    @MethodSource("christmasDday")
+    fun `크리스마스 이벤트 기간 여부에 대한 테스트`(date: Int, check: Boolean) {
+        val checkChristmasDay = event.checkBeforeChristmas(date)
+
+        assertEquals(check, checkChristmasDay)
     }
 
-    @Test
-    fun checkWeekday() {
+    @ParameterizedTest
+    @MethodSource("includeWeekDay")
+    fun `평일 이벤트에 해당되는지에 대한 테스트`(date: Int, check: Boolean) {
+        val checkWeekDay = event.checkWeekday(date)
+
+        assertEquals(check, checkWeekDay)
     }
 
-    @Test
-    fun checkWeekend() {
+    @ParameterizedTest
+    @MethodSource("includeWeekEnd")
+    fun `주말 이벤트에 해당되는지에 대한 테스트`(date: Int, check: Boolean) {
+        val checkWeekEnd = event.checkWeekend(date)
+
+        assertEquals(check, checkWeekEnd)
     }
 
-    @Test
-    fun checkSpecialDay() {
+    @ParameterizedTest
+    @MethodSource("includeSpecialDay")
+    fun `특별 할인 이벤트에 해당되는지에 대한 테스트`(date: Int, check: Boolean) {
+        val checkSpecialDay = event.checkSpecialDay(date)
+
+        assertEquals(check, checkSpecialDay)
     }
+
 
     companion object {
 
@@ -50,6 +67,42 @@ internal class EventTest {
                 Arguments.of(130000, true),
                 Arguments.of(65000, false),
                 Arguments.of(210000, true)
+            )
+        }
+
+        @JvmStatic
+        fun christmasDday(): Stream<Arguments> {
+            return Stream.of(
+                Arguments.of(7, true),
+                Arguments.of(16, true),
+                Arguments.of(29, false)
+            )
+        }
+
+        @JvmStatic
+        fun includeWeekDay(): Stream<Arguments> {
+            return Stream.of(
+                Arguments.of(6, true),
+                Arguments.of(11, true),
+                Arguments.of(8, false)
+            )
+        }
+
+        @JvmStatic
+        fun includeWeekEnd(): Stream<Arguments> {
+            return Stream.of(
+                Arguments.of(8, true),
+                Arguments.of(16, true),
+                Arguments.of(21, false)
+            )
+        }
+
+        @JvmStatic
+        fun includeSpecialDay(): Stream<Arguments> {
+            return Stream.of(
+                Arguments.of(3, true),
+                Arguments.of(17, true),
+                Arguments.of(28, false)
             )
         }
 
