@@ -41,8 +41,12 @@ class CalculatorTest {
         assertEquals(expectedBenefits, benefits)
     }
 
-    @Test
-    fun calculateTotalPrice() {
+    @ParameterizedTest
+    @MethodSource("sumExpectedAmount")
+    fun `할인 후 예상 결제 금액에 대한 테스트`(price: Int, benefit: Int, freeGift: Boolean, expectedAmount: Int) {
+        val actualExpectedAmount = calculator.calculateTotalPrice(price, benefit, freeGift)
+
+        assertEquals(expectedAmount, actualExpectedAmount)
     }
 
 
@@ -91,6 +95,15 @@ class CalculatorTest {
                     true,
                     31946
                 )
+            )
+        }
+
+        @JvmStatic
+        fun sumExpectedAmount(): Stream<Arguments> {
+            return Stream.of(
+                Arguments.of(150000, 35000, true, 140000),
+                Arguments.of(62000, 8000, false, 54000),
+                Arguments.of(125000, 31000, true, 119000)
             )
         }
     }
