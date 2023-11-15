@@ -3,6 +3,9 @@ package christmas.service
 import christmas.model.Menu
 import christmas.model.MenuCategory
 import christmas.util.Constants.NOTHING
+import christmas.util.Constants.SANTA
+import christmas.util.Constants.STAR
+import christmas.util.Constants.TREE
 
 class Event {
 
@@ -31,9 +34,9 @@ class Event {
 
     fun badgeEvent(benefit: Int): String {
         return when {
-            benefit >= 20000 -> "산타"
-            benefit >= 10000 -> "트리"
-            benefit >= 5000 -> "별"
+            benefit >= 20000 -> SANTA
+            benefit >= 10000 -> TREE
+            benefit >= 5000 -> STAR
             else -> NOTHING
         }
     }

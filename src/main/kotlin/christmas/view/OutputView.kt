@@ -7,6 +7,7 @@ import christmas.service.Event
 import christmas.util.Constants.AMOUNT_BEFORE_DISCOUNT
 import christmas.util.Constants.BENEFIT_DETAIL
 import christmas.util.Constants.CHRISTMAS_DDAY_DISCOUNT
+import christmas.util.Constants.DATE
 import christmas.util.Constants.DECEMBER
 import christmas.util.Constants.EVENT_BADGE
 import christmas.util.Constants.EXPECTED_AMOUNT
@@ -31,7 +32,7 @@ class OutputView {
     }
 
     fun printPreviewEvent(date: Int) {
-        println(DECEMBER + " ${date}일에 " + PREVIEW_EVENT_PLANNER)
+        println(DECEMBER + " ${date}"+ DATE + PREVIEW_EVENT_PLANNER)
     }
 
     fun printOrder(order: Map<Menu, Int>) {
@@ -62,25 +63,45 @@ class OutputView {
         println("\n" + BENEFIT_DETAIL)
 
         if (event.checkBeforeChristmas(date))
-            println(CHRISTMAS_DDAY_DISCOUNT + "-" + formatAmount(event.christmasDdayEvent(date)) + "원")
+            printDetailEventBenefit(CHRISTMAS_DDAY_DISCOUNT, event.christmasDdayEvent(date))
 
-        if (event.checkWeekday(date))
-            println(WEEKDAY_DISCOUNT + "-" + formatAmount(event.weekdayEvent(order)) + "원")
+        if (event.checkWeekday(date) && event.weekdayEvent(order) != 0)
+            printDetailEventBenefit(WEEKDAY_DISCOUNT, event.weekdayEvent(order))
 
-        if (event.checkWeekend(date))
-            println(WEEKEND_DISCOUNT + "-" + formatAmount(event.weekendEvent(order)) + "원")
+        if (event.checkWeekend(date) && event.weekendEvent(order) != 0)
+            printDetailEventBenefit(WEEKEND_DISCOUNT, event.weekendEvent(order))
 
         if (event.checkSpecialDay(date))
-            println(SPECIAL_DISCOUNT + "-" + formatAmount(event.specialDayEvent()) + "원")
+            printDetailEventBenefit(SPECIAL_DISCOUNT, event.specialDayEvent())
 
-        if (freeGift) println(FREEGIFT_EVENT + "-" + formatAmount(event.freeGiftPrice()) + "원")
+        if (freeGift) printDetailEventBenefit(FREEGIFT_EVENT, event.freeGiftPrice())
 
-        if (!event.checkBeforeChristmas(date) && !event.checkWeekday(date) && !event.checkWeekend(
-                date
-            )
-            && !freeGift && !event.checkSpecialDay(date)
+        notAllConditions(date, freeGift)
+        specialCase(date, order, freeGift)
+    }
+
+    private fun notAllConditions(date: Int, freeGift: Boolean){
+        if (!event.checkBeforeChristmas(date) &&
+            !event.checkWeekday(date) &&
+            !event.checkWeekend(date) &&
+            !freeGift &&
+            !event.checkSpecialDay(date)
         )
             println(NOTHING)
+    }
+
+    private fun specialCase(date: Int, order: Map<Menu, Int>, freeGift: Boolean){
+        if (!event.checkBeforeChristmas(date) &&
+            ((event.checkWeekday(date) && event.weekdayEvent(order) == 0) ||
+            (event.checkWeekend(date) && event.weekendEvent(order) == 0)) &&
+            !freeGift &&
+            !event.checkSpecialDay(date)
+        )
+            println(NOTHING)
+    }
+
+    private fun printDetailEventBenefit(event : String, amount : Int) {
+        println(event + "-" + formatAmount(amount) + "원")
     }
 
     fun printSumBenefits(benefit: Int): Int {

@@ -3,8 +3,6 @@ package christmas.model
 
 import christmas.util.Constants.FREE_GIFT
 
-
-
 enum class MenuCategory(private val menuList: List<Menu>) {
     APPETIZER(
         listOf(
